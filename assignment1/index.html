@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8">
+<title> Assignment 1</title>
+</head>
+    <style>
+        body{background-color: darkgreen}
+        h1{color:beige; font-family: inherit; text-align: center; font-size: 35px}
+        h2{color: beige; font-family: inherit; text-align: center; font-size: 20px}
+        h3{color: black; font-family: serif; text-align: center; font-size: 17px}
+         h4{color:beige; font-family: serif; text-align: center; font-size: 12px}
+        p{color: black; font-family: sans-serif; font-size: 15px; text-align: center; margin: auto; margin-bottom:auto}
+        div.mapdesc {
+            border: 2px solid darkgray ; background-color:darkkhaki;margin: auto; margin-bottom:auto;
+        }
+          
+    </style>
+<body>
+<h1>"JavaScript Skills!"</h1>
+<h2>Sayma Khajehei<br> February 21st, 2019</h2>
+    <div class="mapdesc"> 
+        
+             <h3>What is your name?</h3><br>
+ <p>First name: <input type="text" id="firstname" name="firstname"><br><br>
+Last name: <input type="text" id="lastname" name="lastname"><br><br>
+         <button onclick="info()">Info</button><br>
+        </p>
+        <p id="info"></p>
+        <script>
+             //first name, last name: two user input fields besides input and a button
+ function info() {
+     {
+      var x=document.getElementById("firstname").value;
+      var y=document.getElementById("lastname").value;
+     }
+    document.getElementById("info").innerHTML= "My name is "+ x+ " " +y; 
+     }
+            </script>
+         
+        <p>I want to know about your feeling with your weight! But, let's figure out our weight in kilograms at the first step: </p>
+        <h3>Let's Convert Pounds (lb) to Kilograms (kg):</h3>
+        <p>Please insert the lb amount of your weight <input id="input1" type="text"><br>
+            <br>
+          <button onclick="calculate()"> Result in Kg</button> = <span id="theResult"></span></p>
+        
+        <script>
+             // a function
+            {
+              
+             function calculate() {
+                   var input1 = parseInt(document.getElementById("input1").value);
+             output= input1 * (0.453592);
+     document.getElementById("theResult").innerHTML= output;
+             }
+            }
+        
+   </script> 
+        
+        <h3>What is your feeling?</h3><br>
+<p><input type="radio" id="sense1" name="sense" value="happy">Happy<br>
+<input type="radio" id="sense2" name="sense" value="sad">Sad<br><br>
+        <button onclick="display()">display</button><br>
+        </p>
+          <p id="display"></p>
+        <script>
+            //radio output of the input after it has been manipulated
+            function display() {
+    if (document.getElementById('sense1').checked) {
+        sense_value = document.getElementById('sense1').value;
+    } else if (document.getElementById('sense2').checked) {
+        sense_value = document.getElementById('sense2').value;
+    }
+
+    document.getElementById("display").innerHTML = "I am " + sense_value;
+}
+        
+        </script>
+        
+        <br><p> Let's forget about our weight! It is not an intresting topic. Let's have some fun to know me better!</p>
+       <h3>First Step: It is time to know my lovely numbers!</h3>
+        <P>
+            <select id="Number" >
+                <option value="1">1</option>
+                 <option value="2">12</option>
+                 <option value="3">19</option>
+                 <option value="4">7</option>
+            </select>
+        </P><br>
+        <p>This is <button onclick="description()"> Click </button> = <span id="what"></span></p>
+        <script>
+             //if then or case
+            { function description()
+                { var text=document.getElementById("Number").value;
+        switch(text)
+    {
+        case '1': 
+            text= "the number of my siblings";
+            break;
+        case '2':
+            text= "the number of my birth month";
+            break;
+        case '3':
+            text= "the number of my birth day";
+                break;
+        case '4':
+            text= "my lucky number";
+                }
+           document.getElementById("what").innerHTML=text;
+                }
+            }
+            
+            </script>
+      
+        <h3>After getting known with my lovely numbers, for the second step: it is time to get known with my priorities in life!</h3>
+        <p>Click the button  <button onclick="myPriority()">Sort</button> to see my priorities in life from the most important to the least important:
+       </p>
+        <p id="options"></p>
+        <script>
+             //array 
+            var priority = [
+                {number:"4",opt:"Money"},
+                {number:"2",opt:"Family"},
+                {number:"3",opt:"Job"},
+                {number:"1",opt:"Love"},   
+            ];
+            displayPriority();
+            
+            function myPriority(){
+               priority.sort(function(a, b) {return a.number- b.number});
+                displayPriority();
+            }
+            function displayPriority() {
+                document.getElementById("options").innerHTML=
+                   priority[0].opt + "<br>" +
+                   priority[1].opt + "<br>" +
+                   priority[2].opt + "<br>" +
+                  priority[3].opt;                   
+            }
+            </script>
+        
+      <h3>Let's see these priorities again using loop function!</h3>
+        <p>My priorities in my life
+       </p>
+        <p id="prioritiesOptions"></p>
+        <br>
+        <script>
+             //loop 
+            var prior = ["Love","Family","Job","Money"];
+            var text = "";
+            var i;
+            for (i=0; i<prior.length; i++) {
+                text += "<li>" + prior[i] + "<br>";
+            }
+            document.getElementById("prioritiesOptions").innerHTML = text; 
+            </script>
+       <h3>Last thing about me!</h3><br> 
+        <p id="last"></p>
+        <script>
+             //object 
+           function Person(first, last, age) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.nationality = "Iranian";
+}
+var myName = new Person("Sayma", "Khajehei", 30, "brown");
+var myHusband = new Person("Amir", "Mohajeri", 34, "brown");
+
+document.getElementById("last").innerHTML =
+"My name is " + myName.firstName + ". My nationality is " + myName.nationality + ". The nationality of my husband is " + myHusband.nationality + "." ; 
+            </script>
+        <br>
+ </div> 
+   <h4>JavaScript is AMAZING!<br>I am excited to learn more about it!</h4>   
+</body>
+</html>
