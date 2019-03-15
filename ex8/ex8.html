@@ -48,7 +48,7 @@ var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
     },
 
     onEachFeature: function (feature, layer) {
-        htmlText = "<strong>" + feature.properties.Name + "</strong>" + "<div class='centered'>" + "<img src='" + feature.properties.LogoURL + "' width='100'>" + "</div>";
+        htmlText = "<strong>" + feature.properties.Name + "</strong>" + "<div class='centered'>" + "<img src='" + feature.properties.URLlogo + "' width='100'>" + "</div>";
         layer.bindPopup(htmlText);
         textForTooltip = feature.properties.Name + " finished " + feature.properties.AcceptanceRate + " in their group this season.";
 		layer.bindTooltip(textForTooltip);
