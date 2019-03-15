@@ -18,6 +18,8 @@
             height:500px;
             vertical-align: center;
         }
+      
+   
     </style>
 </head>
   <body>
@@ -33,6 +35,13 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       </script>
       <script>    
          var myURL = "https://sayma-kh.github.io/LA458-558/ex8/map.geojson";
+          function style(feature) {
+    return {
+        stroke: false,
+        fillColor: ((feature.properties.ProgressedToQuartFin > 0) ?  '#ff0000' : '#ffff00': '#008000'),
+        weight: 0
+    };
+}
 
 var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
     pointToLayer: function (feature, latlng) {
@@ -57,13 +66,14 @@ var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
       </script>  
       
      <script>
+         
   var legend = L.control({
     position: 'bottomleft'
 });
 
 legend.onAdd = function(map) {
     var div = L.NumStudent.create('div', 'info legend'),
-        vals = [1,2,3],
+        vals = [0,1,2],
         labels = ['High ', 'Medium', 'Low '];
     
     div.innerHTML += "<b> Rate of Accepted Students:</b><br>";
