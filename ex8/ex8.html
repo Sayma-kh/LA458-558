@@ -48,13 +48,34 @@ var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
     },
 
     onEachFeature: function (feature, layer) {
-        htmlText = "<strong>" + feature.properties.Name + "</strong>" + "<div class='centered'>" + "<img src='" + feature.properties.URLlogo + "' width='200'>" + "</div>";
+        htmlText = "<strong>" + feature.properties.Name + "</strong>" + "<div class='centered'>" + "<img src='" + feature.properties.URLlogo + "' width='100'>" + "</div>";
         layer.bindPopup(htmlText);
         textForTooltip = feature.properties.Name + " Ranked " + feature.properties.Rank + " Among Planning Schools with " + feature.properties.AcceptanceRate + " Acceptance Rate " ;
 		layer.bindTooltip(textForTooltip);
     }
 }).addTo(map);
-      </script>   
-     
+      </script>  
+      
+     <script>
+  var legend = L.control({
+    position: 'bottomleft'
+});
+
+legend.onAdd = function(map) {
+    var div = L.NumStudent.create('div', 'info legend'),
+        vals = [1,2,3],
+        labels = ['High ', 'Medium', 'Low '];
+    
+    div.innerHTML += "<b> Rate of Accepted Students:</b><br>";
+    
+    for (var i = 0; i < vals.length; i++) {
+    div.innerHTML +=
+      '<i style="background:' + ((vals[i] > 0) ? '#ff0000' : '#ffff00': '#008000') + ' ">&nbsp;&nbsp;&nbsp;&nbsp;</i> ' + labels[i]+'<br>';
+  }
+
+  return div;
+};
+legend.addTo(map)    
+      </script>
       </body>
 </html>
