@@ -82,7 +82,7 @@ function getColor(d) {
 
 var legend = L.control({position: 'bottomleft'});
 legend.onAdd = function (map) {
-    var div = L.NumStudent.create('div', 'info legend');
+    var div = L.DomUtil.create('div', 'info legend');
     // loop through items and generate legend items each
     for (var i = 0; i < breaks.length; i++) {
         div.innerHTML +=
