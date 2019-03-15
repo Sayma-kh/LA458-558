@@ -35,14 +35,15 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       </script>
       <script>    
          var myURL = "https://sayma-kh.github.io/LA458-558/ex8/map.geojson";
+  
           function style(feature) {
     return {
         stroke: false,
-        fillColor: ((feature.properties.ProgressedToQuartFin > 0) ?  '#ff0000' : '#ffff00': '#008000'),
+        fillColor: ((feature.properties.ProgressedToQuartFin > 0) ? '#1a9850' : '#d73027'),
         weight: 0
     };
 }
-
+          
 var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
     pointToLayer: function (feature, latlng) {
         return new L.CircleMarker(latlng, {
