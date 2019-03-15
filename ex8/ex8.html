@@ -88,7 +88,7 @@ var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
      <script>
          
  var breaks = [1, 2, 3,]; 
-var labels = ['Low', 'Moderate', 'High'];
+var labels = ['Low Acceptance Rate', 'Moderate Acceptance Rate ', 'High Acceptance Rate'];
 function getColor(d) {
     return  d == '1' ? "#d73027" :
     d == '2' ? "#ffa500" :
@@ -110,5 +110,8 @@ legend.onAdd = function (map) {
 };
 legend.addTo(map);
       </script>
+      <br><p>This map shows the Top 10 Schools of Urban Planning in the US.Circles with the colors show the accepted students rate. 
+      </p><br>
+      
       </body>
 </html>
