@@ -36,10 +36,12 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       <script>    
          var myURL = "https://sayma-kh.github.io/LA458-558/ex8/map.geojson";
   
-          function style(feature) {
+        function style(feature) {
     return {
         stroke: false,
-        fillColor: ((feature.properties.NumStudent > 0) ? '#1a9850' : '#d73027'),
+        fillColor: ((feature.properties.NumStudent == 1) ? '#d73027' : 
+            (feature.properties.rank == 2) ? '#2c7fb8' :
+            (feature.properties.rank == 3) ? '#a1dab4': '#41b6c4' ),
         weight: 0
     };
 }
@@ -68,25 +70,28 @@ var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
       
      <script>
          
-  var legend = L.control({
-    position: 'bottomleft'
-});
+ var breaks = [1, 2, 3,]; 
+var labels = ['High', 'Moderate', 'Low'];
+function getColor(d) {
+    return  d == '1' ? "#d73027" :
+    d == '2' ? "#2c7fb8" :
+    d == '3' ? "#a1dab4":
+    "#FFFFFF";
+}
 
-legend.onAdd = function(map) {
-    var div = L.NumStudent.create('div', 'info legend'),
-        vals = [0,1,2],
-        labels = ['High ', 'Medium', 'Low '];
-    
-    div.innerHTML += "<b> Rate of Accepted Students:</b><br>";
-    
-    for (var i = 0; i < vals.length; i++) {
-    div.innerHTML +=
-      '<i style="background:' + ((vals[i] > 0) ? '#ff0000' : '#ffff00': '#008000') + ' ">&nbsp;&nbsp;&nbsp;&nbsp;</i> ' + labels[i]+'<br>';
-  }
 
-  return div;
+var legend = L.control({position: 'bottomleft'});
+legend.onAdd = function (map) {
+    var div = L.NumStudent.create('div', 'info legend');
+    // loop through items and generate legend items each
+    for (var i = 0; i < breaks.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(breaks[i]) + ' "></i> ' +
+            labels[i] + (breaks ? '' +  '<br>' : '');
+    }
+    return div;
 };
-legend.addTo(map)    
+legend.addTo(map);
       </script>
       </body>
 </html>
