@@ -47,6 +47,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 }
           
 var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
+     style: style,
     pointToLayer: function (feature, latlng) {
         return new L.CircleMarker(latlng, {
             stroke: true,
