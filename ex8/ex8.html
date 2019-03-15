@@ -39,7 +39,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
           function style(feature) {
     return {
         stroke: false,
-        fillColor: ((feature.properties.ProgressedToQuartFin > 0) ? '#1a9850' : '#d73027'),
+        fillColor: ((feature.properties.NumStudent > 0) ? '#1a9850' : '#d73027'),
         weight: 0
     };
 }
