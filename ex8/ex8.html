@@ -57,8 +57,8 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     return {
         stroke: false,
         fillColor: ((feature.properties.NumStudent == 1) ? '#d73027' : 
-            (feature.properties.rank == 2) ? '#ffa500' :
-            (feature.properties.rank == 3) ? '#3cb371': '#41b6c4' ),
+            (feature.properties.NumStudent == 2) ? '#ffa500' :
+            (feature.properties.NumStudent == 3) ? '#3cb371': '#41b6c4' ),
         weight: 0
     };
 }
