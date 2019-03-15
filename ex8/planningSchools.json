@@ -7,9 +7,9 @@
         "marker-color": "#ff0000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "Massachussetts Institute of Technology",
-        "2017 Rank": 1,
-        "Acceptance Rate": "24%"
+        "Name": "Massachussetts Institute of Technology",
+        "Rank": 1,
+        "AcceptanceRate": "24%"
       },
       "geometry": {
         "type": "Point",
@@ -25,9 +25,9 @@
         "marker-color": "#ff0000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "University of California,Berkely",
-        "2017 Rank": 2,
-        "Acceptance Rate": "18%"
+        "Name": "University of California,Berkely",
+        "Rank": 2,
+        "AcceptanceRate": "18%"
       },
       "geometry": {
         "type": "Point",
@@ -43,9 +43,9 @@
         "marker-color": "#008000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "University of North Carolina at Chapel Hill",
-        "2017 Rank": 3,
-        "Acceptance Rate": "29%"
+        "Name": "University of North Carolina at Chapel Hill",
+        "Rank": 3,
+        "AcceptanceRate": "29%"
       },
       "geometry": {
         "type": "Point",
@@ -61,9 +61,9 @@
         "marker-color": "#ffff00",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "University of California,Los Angeles",
-        "2017 Rank": 4,
-        "Acceptance Rate": "47%"
+        "Name": "University of California,Los Angeles",
+        "Rank": 4,
+        "AcceptanceRate": "47%"
       },
       "geometry": {
         "type": "Point",
@@ -79,9 +79,9 @@
         "marker-color": "#008000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "Rutgers, The State University of New Jersey",
-        "2017 Rank": 5,
-        "Acceptance Rate": "65%"
+        "Name": "Rutgers, The State University of New Jersey",
+        "Rank": 5,
+        "AcceptanceRate": "65%"
       },
       "geometry": {
         "type": "Point",
@@ -97,9 +97,9 @@
         "marker-color": "#ff0000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "Harvard University ",
-        "2017 Rank": 6,
-        "Acceptance Rate": "22%"
+        "Name": "Harvard University ",
+        "Rank": 6,
+        "AcceptanceRate": "22%"
       },
       "geometry": {
         "type": "Point",
@@ -115,9 +115,9 @@
         "marker-color": "#008000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "Georgia Institute of Technology ",
-        "2017 Rank": 7,
-        "Acceptance Rate": "76%"
+        "Name": "Georgia Institute of Technology ",
+        "Rank": 7,
+        "AcceptanceRate": "76%"
       },
       "geometry": {
         "type": "Point",
@@ -133,9 +133,9 @@
         "marker-color": "#ffff00",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "University of Illinois Urbana-Champaign",
-        "2017 Rank": 8,
-        "Acceptance Rate": "53%"
+        "Name": "University of Illinois Urbana-Champaign",
+        "Rank": 8,
+        "AcceptanceRate": "53%"
       },
       "geometry": {
         "type": "Point",
@@ -151,9 +151,9 @@
         "marker-color": "#008000",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "University of Southern California",
-        "2017 Rank": 9,
-        "Acceptance Rate": "72%"
+        "Name": "University of Southern California",
+        "Rank": 9,
+        "AcceptanceRate": "72%"
       },
       "geometry": {
         "type": "Point",
@@ -169,9 +169,9 @@
         "marker-color": "#ffff00",
         "marker-size": "medium",
         "marker-symbol": "circle",
-        "Name ": "Cornell University",
-        "2017 Rank": 10,
-        "Acceptance Rate": "56%"
+        "Name": "Cornell University",
+        "Rank": 10,
+        "AcceptanceRate": "56%"
       },
       "geometry": {
         "type": "Point",
