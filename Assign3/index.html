@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Asignment 3: leaflet and JavaScript Project</title>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script> 
+<script src="https://sayma-kh.github.io/LA458-558/Leaflet.pattern-master/dist/leaflet.pattern-src.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.0.js"></script>	
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    
+  <style>
+          header {padding: 0.5em;color: white; background-color: darkblue; clear: none; text-align: center; justify-content: left}
+        body{background-color:beige}
+        h1{color: white; font-family: cursive; text-align: center; font-size: 30px}
+        h2{color: white; font-family: verdana; text-align: center; font-size: 20px}
+        h3{color: black; font-family: cursive; text-align: center; font-size: 20px}
+        h4{color: black; font-family: cursive; text-align: center; font-size: 15px}
+        p{color: black; font-family: verdana; font-size: 15px; text-align:center; margin: auto; margin-bottom:auto}
+        div{vertical-align: middle;
+      margin: auto} 
+        
+      #map {
+            width: 900px;
+            height:500px;
+            vertical-align: center;
+        }
+      
+      #map2 {
+            width: 900px;
+            height:500px;
+            vertical-align: center;
+        }
+             .legend {
+    line-height: 10px;
+    color: #555;
+    }
+      
+    .legend i {
+        width: 18px;
+        height: 19px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.8;
+    }
+      .info {
+        padding: 6px 8px;
+        font: 10px/20px Arial, Helvetica, sans-serif;
+        background: rgba(255,255,255,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 7px;
+    }
+    </style>
+
+</head>
+  <body>
+      <header>
+   <h1>"Asignment 3: leaflet and JavaScript Project"</h1>
+<h2>Sayma Khajehei<br> April 9th, 2019</h2>   
+</header>
+    </body>
+      <br>
+      <br>
+ <div id="pics"></div> 
+      <body data-np-sl-ts-op-loaded="true">
+         <h3> I want to share some information about my plans in the next few months in this page! So, let's see! </h3>
+          <p>
+          In Aguest, I am going to move to <strong>Salt lake City in Utah</strong> to pursue my Ph.D. in Urban Planning! I am so excited, since Salt Lake City has a magnificent nature and I am going to spend my graduate studies there! So, I tink I have to take advantage of my time and advanture Utah as well as west part of the U.S. where I have never been before! <br>
+              So, in the first section of this page, I put some photos of touristic places in Utah;<em> Bryce Canyon National park, Great Salt Lake, Temple Square, and Olympic Park</em>!
+          </p>
+          <br>
+          <p>
+        <img name="slide" id="slide" width="900" height="500" src=" "></p>
+       <script>
+           //images of Utah!--- Assign 3:use at least 2 images
+           var i =0; 
+           var images = [];
+           var time = 2000;
+           
+           images [0] = "https://www.nationalgeographic.com/content/dam/travel/2017-digital/utah/bryce-canyon/sunrise-amphitheater-bryce-canyon-national-park.jpg";
+           images [1] = "https://i.redd.it/j0uzzglew8oy.jpg";
+           images [2] = "https://www.sltrib.com/resizer/PRQyWU3cW7EW3HRqUlHBn9Q2S3Q=/0x600/smart/filters:quality(86)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/7SM5LOPF4BG3JLWOTEVIFTPZTI.jpg";
+           images [3] = "https://pictures.escapia.com/TSVR/134587/6523000456.jpg";
+           
+           //function: show slides of images
+           function changeImg() {
+               document.slide.src = images [i];
+               
+               if(i < images.length - 1){
+                 i++;
+               } else {
+                   i =0;
+               }
+            setTimeout("changeImg()", time);
+           }
+           
+           window.onload = changeImg;
+        </script> 
+          <br><br> 
+ <div id='map2'></div>
+        <script>
+//Leaflet Plugin        
+    var OSM2 = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+	maxZoom: 12
+}); 
+//create the maps
+var map2 = L.map('map2', {
+	center: new L.LatLng(40.764903, -112.131959),
+	zoom: 12,
+	layers: [OSM2]
+});
+
+var myPattern = new L.StripePattern({
+angle: 0,
+weight: 4,
+color: 'black',
+opacity: 0.75,
+}); 
+myPattern.addTo(map2);
+      var circle = L.circle([40.764903, -112.131959],
+   750,
+  {
+    color: 'black'
+fillPattern: myPattern,
+fillOpacity: 1.00
+});
+  circle.addTo(map2);            
+</script>
+       
+    <br> <br>
+          
+          <p>
+          There are 200,544 people who live in Salt Lake City and the racial composition in Salt Lake City is as follows based on 2010 Census Data: 
+          </p> 
+          <br><br>
+<div id="container" style="min-width: 510px; height: 500px; max-width: 900px; margin: 0 auto"></div>
+            <script>
+   // Build the chart--- Assign 3: 1 highchart/highmap
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Salt Lake City, UT Racial Composition, 2010'
+    },
+    subtitle: {
+        text: 'Source: 2010 Census Data'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Race',
+        colorByPoint: true,
+        data: [{
+            name: 'White',
+            y: 75.1,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'African-American',
+            y: 2.7
+        }, {
+            name: 'Native American',
+            y: 1.2
+        }, {
+            name: 'Native Hawaiian',
+            y: 2.0
+        }, {
+            name: 'Asian',
+            y: 4.4
+        }, {
+            name: 'Others',
+            y: 14.6
+        }]
+    }]
+});
+    </script>
+          <br><br>
+          <p> As you can see in the above chart, Salt Lake City is a white community!</p>
+          <br><br>
+          <h4> Let's see my plan for the 2019-2020 after moving to Salt Lake City!</h4><br>
+ <p>I make a list of amazing national parks in the western part of the U.S. to visit them from August 2019 to August 2020! However, I know it would be hard to visit all of them in a year! So, I make a priority map for my self that you can see my priorities in visiting national parks with the help of the Green, Red, and Orange circles!<br><br>
+    Apart from the national Parks I have another amazing idea for exploring western U.S. I want to have an amazing road trip in the winter holidays! I am going to drive from Salt Lake City to San Fransisco. If you turn on the cities and polyline maps, you can see the route of my road trip and the cities that I am going to visit.</p>  
+    <br><br>
+                       
+<div id="map"></div>
+      
+  <script id="jsbin-javascript">
+console.clear();
+//Assign 3: layer Control: at least 2 base map, 2 overlays
+      //Base Layers
+var OSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 20
+});
+var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+var MapQuestOpen_Aerial = L.tileLayer('http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
+	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+	subdomains: '1234'
+});
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
+// Overlay layers
+var Stamen_TonerLines = L.tileLayer('http://{s}.tile.stamen.com/toner-lines/{z}/{x}/{y}.png', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20
+});
+//Vector and Marker Layers
+var california = L.marker([34.071297, -118.267235]).bindPopup('Los Angeles'),
+    california2 = L.marker([37.783333, -122.416667]).bindPopup('San Fransisco'),
+    nevada   = L.marker([36.265829, -115.341351]).bindPopup('Las Vegas'),
+    utah    = L.marker([40.764903, -112.131959]).bindPopup('Salt Lake City');
+        
+var pointD = new L.LatLng(37.783333, -122.416667);
+var pointA = new L.LatLng(34.071297, -118.267235);
+var pointB = new L.LatLng(36.265829, -115.341351);
+var pointC = new L.LatLng(40.764903, -112.131959);
+
+var pointList = [pointD, pointA, pointB, pointC];
+var myPolyline = new L.Polyline(pointList, {
+    color: 'red',
+    weight: 2,
+    opacity: 1,
+    smoothFactor: 1,
+    dashArray: '4,10,18,10',
+lineJoin: 'miter',
+lineCap: 'square'
+});
+var Cities = L.layerGroup([california, california2, nevada, utah]);
+      
+//create the map
+var map = L.map('map', {
+    		center: new L.LatLng(34.5, -111),
+    		zoom: 4,
+    		layers: [OSM, Stamen_TonerLines, Cities]
+		});
+//layer control
+		var baseMaps = {
+			"OpenStreetMap": OSM,
+			"OpenTopoMap": OpenTopoMap, "Esri_WorldImagery": Esri_WorldImagery
+    };
+       		
+		var overlayMaps = {
+			"Stamen TonerLines": Stamen_TonerLines,
+      "Cities": Cities,
+      "Polyline": myPolyline
+			
+		};
+	
+		L.control.layers(baseMaps, overlayMaps).addTo(map);
+      
+//Geojson map: Priority --- Assign3: 1 external Geojson
+ 
+    var myPoints = [
+        [2 ,41.3, -124, "Redwood National Park"],
+        [2 ,37.85, -119.55, "Yosemite National Park"],
+        [9 ,37.6283, -112.168, "Bryce Cannyon National Park"],
+        [5 ,38.68333, -109.567, "Arches National Park"],
+        [9 ,44.6, -110.5, "Yellow Stone National Park"],
+        [5 ,36.98333, -110.1, "Monument Vally National Park"],
+];
+  //Priority Setting
+var breaks = [2, 5, 9,]; 
+var labels = ['High Priority', 'Medium Priority', 'Low Priority'];
+   //set color of marker function
+function getColor(d) {
+    return  d == '2' ? "#d73027" :
+    d == '5' ? "#ffa500" :
+    d == '9' ? "#3cb371":
+    "#FFFFFF";
+}
+for (var i = 0; i < myPoints.length; i++) {
+    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
+    radius: myPoints[i][0]*5/2,
+    fillColor: getColor(myPoints[i][0]), 
+    color: "#000",
+    stroke: true,
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.9   
+})
+.bindPopup(myPoints[i][3]) //note there is no comma here
+.addTo(map);
+}
+var legend = L.control({position: 'bottomleft'});
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    // loop through items and generate legend items each
+    for (var i = 0; i < breaks.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(breaks[i]) + ' "></i> ' +
+            labels[i] + (breaks ? '' +  '<br>' : '');
+    }
+    return div;
+};
+legend.addTo(map);  
+     </script>
+
+<script id="jsbin-source-css" type="text/css"> 
+#map { width: 900px;height: 500px;vertical-align: center; }</script>
+
+<script id="jsbin-source-javascript" type="text/javascript">console.clear();
+//Base Layers
+var OSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 20
+});
+var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+var MapQuestOpen_Aerial = L.tileLayer('http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
+	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+	subdomains: '1234'
+});
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+// Overlay layers
+var Stamen_TonerLines = L.tileLayer('http://{s}.tile.stamen.com/toner-lines/{z}/{x}/{y}.png', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20
+});
+//Vector and Marker Layers
+var california = L.marker([34.071297, -118.267235]).bindPopup('Los Angeles'),
+    california2 = L.marker([37.783333, -122.416667]).bindPopup('San Fransisco'),
+    nevada   = L.marker([36.265829, -115.341351]).bindPopup('Las Vegas'),
+    utah    = L.marker([40.764903, -112.131959]).bindPopup('Salt Lake City');
+    
+var pointD = new L.LatLng(37.783333, -122.416667); 
+var pointA = new L.LatLng(34.071297, -118.267235);
+var pointB = new L.LatLng(36.265829, -115.341351);
+var pointC = new L.LatLng(40.764903, -112.131959);   
+var pointList = [pointD, pointA, pointB, pointC];
+var myPolyline = new L.Polyline(pointList, {
+    color: 'red',
+    weight: 2,
+    opacity: 1,
+    smoothFactor: 1,
+    dashArray: '4,10,18,10',
+lineJoin: 'miter',
+lineCap: 'square'
+});
+var Cities = L.layerGroup([california, california2, nevada, utah]); 
+//create the map
+var map = L.map('map', {
+    		center: new L.LatLng(34.5, -111),
+    		zoom: 4,
+    		layers: [OSM, Stamen_TonerLines, Cities]
+		});
+//layer control
+		var baseMaps = {
+			"OpenStreetMap": OSM,
+			"OpenTopoMap": OpenTopoMap, "Esri_WorldImagery": Esri_WorldImagery
+		
+    };
+       		
+		var overlayMaps = {
+			"Stamen TonerLines": Stamen_TonerLines,
+      "Cities": Cities,
+      "Polyline": myPolyline
+			
+		};
+	
+		L.control.layers(baseMaps, overlayMaps).addTo(map);
+    
+   //Geojson map: Priority --- Assign3: 1 external Geojson
+    
+    var myPoints = [
+        [2 ,41.3, -124, "Redwood National Park"],
+        [2 ,37.85, -119.55, "Yosemite National Park"],
+        [9 ,37.6283, -112.168, "Bryce Cannyon National Park"],
+        [5 ,38.68333, -109.567, "Arches National Park"],
+        [9 ,44.6, -110.5, "Yellow Stone National Park"],
+        [5 ,36.98333, -110.1, "Monument Vally National Park"],
+];
+//Priority Setting
+var breaks = [2, 5, 9,]; 
+var labels = ['High Priority', 'Medium Priority', 'Low Priority'];
+//set color of marker function
+function getColor(d) {
+    return  d == '2' ? "#d73027" :
+    d == '5' ? "#ffa500" :
+    d == '9' ? "#3cb371":
+    "#FFFFFF";
+}
+for (var i = 0; i < myPoints.length; i++) {
+    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
+    radius: myPoints[i][0]*5/2,
+    fillColor: getColor(myPoints[i][0]), 
+    color: "#000",
+    stroke: true,
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.9   
+})
+.bindPopup(myPoints[i][3]) //note there is no comma here
+.addTo(map);
+}
+var legend = L.control({position: 'bottomleft'});
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    // loop through items and generate legend items each
+    for (var i = 0; i < breaks.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(breaks[i]) + ' "></i> ' +
+            labels[i] + (breaks ? '' +  '<br>' : '');
+    }
+    return div;
+};
+legend.addTo(map);
+          </script>
+  
+<br>
+    
+    </body>
+      
+</html>
