@@ -2,7 +2,7 @@
 <html>
   <head>
       <title>Asignment 3: leaflet and JavaScript Project</title>
-
+<!-- links for every thing :) -->
 	  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
       <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -11,15 +11,20 @@
       <script src="https://sayma-kh.github.io/LA458-558/Leaflet.pattern-master/dist/leaflet.pattern-src.js"></script>
       <script src="https://code.jquery.com/jquery-3.1.0.js"></script>	
       <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-    
+      <link rel="stylesheet" href="https://sayma-kh.github.io/LA458-558/Leaflet.awesome-markers-2.0-develop/dist/leaflet.awesome-markers.css">
+      <script src="https://sayma-kh.github.io/LA458-558/Leaflet.awesome-markers-2.0-develop/dist/leaflet.awesome-markers.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+      <script src="https://sayma-kh.github.io/LA458-558/Assign3/mapp.geojson"></script>
+      <script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
   <style>
-      /* css styles */
+/* css styles */
         header {padding: 0.5em;color: white; background-color: darkblue; clear: none; text-align: center; justify-content: left}
         body{background-color:beige}
         h1{color: white; font-family: cursive; text-align: center; font-size: 30px}
         h2{color: white; font-family: verdana; text-align: center; font-size: 20px}
         h3{color: black; font-family: cursive; text-align: center; font-size: 25px}
-        h4{color: black; font-family: cursive; text-align: center; font-size: 15px}
+        h4{color: black; font-family: cursive; text-align: center; font-size: 25px}
         p{color: black; font-family: verdana; font-size: 15px; text-align:center; margin: auto; margin-bottom:auto}
         div{vertical-align: middle;
       margin: auto} 
@@ -30,11 +35,6 @@
             vertical-align: center;
         }
       
-      #map2 {
-            width: 900px;
-            height:500px;
-            vertical-align: center;
-        }
              .legend {
     line-height: 10px;
     color: #555;
@@ -65,7 +65,7 @@
     </body>
       <br>
       <br>
- <!-- adding images----Assign 3: use at least 2 images-->
+<!-- adding images----Assign 3: use at least 2 images-->
  <div id="pics"></div> 
       <body data-np-sl-ts-op-loaded="true">
          <h3> I want to share some information about my plans in the next few months in this page! So, let's see! </h3>
@@ -77,7 +77,7 @@
           <p>
         <img name="slide" id="slide" width="900" height="500" src=" "></p>
        <script>
-    //images of Utah!--- Assign 3:use at least 2 images
+//images of Utah!--- Assign 3:use at least 2 images
            var i =0; 
            var images = [];
            var time = 2000;
@@ -87,7 +87,7 @@
            images [2] = "https://www.sltrib.com/resizer/PRQyWU3cW7EW3HRqUlHBn9Q2S3Q=/0x600/smart/filters:quality(86)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/7SM5LOPF4BG3JLWOTEVIFTPZTI.jpg";
            images [3] = "https://pictures.escapia.com/TSVR/134587/6523000456.jpg";
            
-           //function: show slides of images
+//function: show slides of images
            function changeImg() {
                document.slide.src = images [i];
                
@@ -101,38 +101,6 @@
            
            window.onload = changeImg;
         </script> 
-          <br><br> 
- <div class="map" id='map2'></div>
-        <script>
-//Leaflet Plugin --- Assign 3: at least 1 leaflet plugin       
-    var OSM2 = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-	maxZoom: 12
-}); 
-//create the maps
-var map2 = L.map('map2', {
-	center: new L.LatLng(40.764903, -112.131959),
-	zoom: 12,
-	layers: [OSM2]
-});
-//Leaflet pattern Plugin
-var myPattern = new L.StripePattern({
-angle: 0,
-weight: 4,
-color: 'black',
-opacity: 0.75,
-}); 
-myPattern.addTo(map2);
-      var circle = L.circle([40.764903, -112.131959],
-   750,
-  {
-    color: 'black'
-fillPattern: myPattern,
-fillOpacity: 1.00
-});
-  circle.addTo(map2);            
-</script>
-       
     <br> <br>
           
           <p>
@@ -141,7 +109,8 @@ fillOpacity: 1.00
           <br><br>
 <div id="container" style="min-width: 510px; height: 500px; max-width: 900px; margin: 0 auto"></div>
             <script>
-   // Build the chart--- Assign 3: 1 highchart/highmap
+// Build the chart--- Assign 3: 1 highchart/highmap
+// Build the chart
 Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
@@ -195,20 +164,21 @@ Highcharts.chart('container', {
     }]
 });
     </script>
+<!-- adding description-->
           <br><br>
           <p> As you can see in the above chart, Salt Lake City is a white community!</p>
           <br><br>
           <h4> Let's see my plan for the 2019-2020 after moving to Salt Lake City!</h4><br>
- <p>I make a list of amazing national parks in the western part of the U.S. to visit them from August 2019 to August 2020! However, I know it would be hard to visit all of them in a year! So, I make a priority map for my self that you can see my priorities in visiting national parks with the help of the Green, Red, and Orange circles!<br><br>
+ <p>I put a flag marker on my map that is the closest Starbucks branch to the University of Utah that I want to go for my break times in the scool year :) <br><br>I make a list of amazing national parks in the western part of the U.S. to visit them from August 2019 to August 2020! However, I know it would be hard to visit all of them in a year! So, I make a priority map for my self that you can see my priorities in visiting national parks with the help of the Green, Red, and Orange circles!<br><br>
     Apart from the national Parks I have another amazing idea for exploring western U.S. I want to have an amazing road trip in the winter holidays! I am going to drive from Salt Lake City to San Fransisco. If you turn on the cities and polyline maps, you can see the route of my road trip and the cities that I am going to visit.</p>  
     <br><br>
-                       
+<!-- Maps and layers and geojson and leaflet plugin-->             
 <div class= "map" id="map"></div>
       
   <script id="jsbin-javascript">
 console.clear();
 //Assign 3: layer Control: at least 2 base map, 2 overlays
-      //Base Layers
+//Base Layers
 var OSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 20
@@ -236,8 +206,7 @@ var Stamen_TonerLines = L.tileLayer('http://{s}.tile.stamen.com/toner-lines/{z}/
 var california = L.marker([34.071297, -118.267235]).bindPopup('Los Angeles'),
     california2 = L.marker([37.783333, -122.416667]).bindPopup('San Fransisco'),
     nevada   = L.marker([36.265829, -115.341351]).bindPopup('Las Vegas'),
-    utah    = L.marker([40.764903, -112.131959]).bindPopup('Salt Lake City');
-        
+    utah    = L.marker([40.764903, -112.131959]).bindPopup('Salt Lake City');     
 var pointD = new L.LatLng(37.783333, -122.416667);
 var pointA = new L.LatLng(34.071297, -118.267235);
 var pointB = new L.LatLng(36.265829, -115.341351);
@@ -253,8 +222,7 @@ var myPolyline = new L.Polyline(pointList, {
 lineJoin: 'miter',
 lineCap: 'square'
 });
-var Cities = L.layerGroup([california, california2, nevada, utah]);
-      
+var Cities = L.layerGroup([california, california2, nevada, utah]);      
 //create the map
 var map = L.map('map', {
     		center: new L.LatLng(34.5, -111),
@@ -275,40 +243,55 @@ var map = L.map('map', {
 		};
 	
 		L.control.layers(baseMaps, overlayMaps).addTo(map);
-      
+          </script>
+          <script>
 //Geojson map: Priority --- Assign3: 1 external Geojson
- 
-    var myPoints = [
-        [2 ,41.3, -124, "Redwood National Park"],
-        [2 ,37.85, -119.55, "Yosemite National Park"],
-        [9 ,37.6283, -112.168, "Bryce Cannyon National Park"],
-        [5 ,38.68333, -109.567, "Arches National Park"],
-        [9 ,44.6, -110.5, "Yellow Stone National Park"],
-        [5 ,36.98333, -110.1, "Monument Vally National Park"],
-];
-  //Priority Setting
-var breaks = [2, 5, 9,]; 
-var labels = ['High Priority', 'Medium Priority', 'Low Priority'];
-   //set color of marker function
+    var myURL = "https://sayma-kh.github.io/LA458-558/Assign3/mapp.geojson";
+      
+        function style(feature) {
+    return {
+        stroke: false,
+        fillColor: ((feature.properties.Rate == 1) ? '#d73027' : 
+            (feature.properties.Rate == 2) ? '#ffa500' :
+            (feature.properties.Rate == 3) ? '#3cb371': '#41b6c4' ),
+        weight: 0
+    };
+}
+//link to external geojson map   
+var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
+     style: style,
+    pointToLayer: function (feature, latlng) {
+        return new L.CircleMarker(latlng, {
+            stroke: true,
+            weight: 0, //stroke weight
+            //color: '#000000', //stroke color
+            opacity: 1.0, //stoke opacity
+            fillOpacity: 0.7,
+            radius: feature.properties.Rate + 7,
+        });
+    },
+
+    onEachFeature: function (feature, layer) {
+        htmlText = "<strong>" + feature.properties.Name + "</strong>";
+        layer.bindPopup(htmlText);
+        textForTooltip = feature.properties.Priority ;
+		layer.bindTooltip(textForTooltip);
+    }
+}).addTo(map);  
+     </script>  
+      
+     <script>
+//priorities          
+   var breaks = [1, 2, 3,]; 
+var labels = ['Low Priority', 'Medium Priority', 'High Priority'];
 function getColor(d) {
-    return  d == '2' ? "#d73027" :
-    d == '5' ? "#ffa500" :
-    d == '9' ? "#3cb371":
+    return  d == '1' ? "#d73027" :
+    d == '2' ? "#ffa500" :
+    d == '3' ? "#3cb371":
     "#FFFFFF";
 }
-for (var i = 0; i < myPoints.length; i++) {
-    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
-    radius: myPoints[i][0]*5/2,
-    fillColor: getColor(myPoints[i][0]), 
-    color: "#000",
-    stroke: true,
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.9   
-})
-.bindPopup(myPoints[i][3]) //note there is no comma here
-.addTo(map);
-}
+
+//legend 
 var legend = L.control({position: 'bottomleft'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
@@ -320,9 +303,24 @@ legend.onAdd = function (map) {
     }
     return div;
 };
-legend.addTo(map);  
+legend.addTo(map);   
+        
      </script>
-
+     
+          <script>
+              
+//Leaflet Plugin --- Assign 3: at least 1 leaflet plugin 
+ var marker = L.marker([40.764024, -111.847782], {
+		icon: L.AwesomeMarkers.icon({
+			icon: 'flag', 
+			prefix: 'ion', 
+			markerColor: 'white',
+			iconColor: 'black'
+		}) 
+});
+              marker.addTo(map);
+          
+          </script>
 <script id="jsbin-source-css" type="text/css"> 
 #map { width: 900px;height: 500px;vertical-align: center; }</script>
 
@@ -355,7 +353,7 @@ var california = L.marker([34.071297, -118.267235]).bindPopup('Los Angeles'),
     california2 = L.marker([37.783333, -122.416667]).bindPopup('San Fransisco'),
     nevada   = L.marker([36.265829, -115.341351]).bindPopup('Las Vegas'),
     utah    = L.marker([40.764903, -112.131959]).bindPopup('Salt Lake City');
-    
+  
 var pointD = new L.LatLng(37.783333, -122.416667); 
 var pointA = new L.LatLng(34.071297, -118.267235);
 var pointB = new L.LatLng(36.265829, -115.341351);
@@ -392,54 +390,55 @@ var map = L.map('map', {
 		};
 	
 		L.control.layers(baseMaps, overlayMaps).addTo(map);
+    </script>
+          <script>
+//Geojson map: Priority --- Assign3: 1 external Geojson
     
-   //Geojson map: Priority --- Assign3: 1 external Geojson
-    
-    var myPoints = [
-        [2 ,41.3, -124, "Redwood National Park"],
-        [2 ,37.85, -119.55, "Yosemite National Park"],
-        [9 ,37.6283, -112.168, "Bryce Cannyon National Park"],
-        [5 ,38.68333, -109.567, "Arches National Park"],
-        [9 ,44.6, -110.5, "Yellow Stone National Park"],
-        [5 ,36.98333, -110.1, "Monument Vally National Park"],
-];
-//Priority Setting
-var breaks = [2, 5, 9,]; 
-var labels = ['High Priority', 'Medium Priority', 'Low Priority'];
-//set color of marker function
+    var myURL = "https://sayma-kh.github.io/LA458-558/Assign3/mapp.geojson";
+      
+        function style(feature) {
+    return {
+        stroke: false,
+        fillColor: ((feature.properties.Rate == 1) ? '#d73027' : 
+            (feature.properties.Rate == 2) ? '#ffa500' :
+            (feature.properties.Rate == 3) ? '#3cb371': '#41b6c4' ),
+        weight: 0
+    };
+}
+//link to external geojson map            
+var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
+     style: style,
+    pointToLayer: function (feature, latlng) {
+        return new L.CircleMarker(latlng, {
+            stroke: true,
+            weight: 0, //stroke weight
+            //color: '#000000', //stroke color
+            opacity: 1.0, //stoke opacity
+            fillOpacity: 0.7,
+            radius: feature.properties.Rate + 7,
+        });
+    },
+
+    onEachFeature: function (feature, layer) {
+        htmlText = "<strong>" + feature.properties.Name + "</strong>";
+        layer.bindPopup(htmlText);
+        textForTooltip = feature.properties.Priority ;
+		layer.bindTooltip(textForTooltip);
+    }
+}).addTo(map);  
+       </script>  
+      
+     <script>
+//priorities           
+   var breaks = [1, 2, 3,]; 
+var labels = ['Low Priority', 'Medium Priority', 'High Priority'];
 function getColor(d) {
-    return  d == '2' ? "#d73027" :
-    d == '5' ? "#ffa500" :
-    d == '9' ? "#3cb371":
+    return  d == '1' ? "#d73027" :
+    d == '2' ? "#ffa500" :
+    d == '3' ? "#3cb371":
     "#FFFFFF";
 }
-for (var i = 0; i < myPoints.length; i++) {
-    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
-    radius: myPoints[i][0]*5/2,
-    fillColor: getColor(myPoints[i][0]), 
-    color: "#000",
-    stroke: true,
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.9   
-})
-.bindPopup(myPoints[i][3]) //note there is no comma here
-.addTo(map);
-}
-var legend = L.control({position: 'bottomleft'});
-legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend');
-    // loop through items and generate legend items each
-    for (var i = 0; i < breaks.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(breaks[i]) + ' "></i> ' +
-            labels[i] + (breaks ? '' +  '<br>' : '');
-    }
-    return div;
-};
-legend.addTo(map);
           </script>
-  
 <br>
     
     </body>
