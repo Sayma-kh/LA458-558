@@ -3,11 +3,13 @@
 
 <head>
    
-    <meta charset="utf-8">
+<meta name="description" content="LA 458/558 Leaflet: Load embedded GeoJSON line and then style">
+        	
   
     <title>Exercise 13:Loading GeoJSON!</title>
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
        <script src="https://sayma-kh.github.io/LA458-558/ex13/map.geojson"></script> 
+    <script src="https://sayma-kh.github.io/LA458-558/ex13/mapp.geojson"></script> 
          <script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
 
   <style>
@@ -56,9 +58,106 @@
     <h1>"Exercise 13:Loading GeoJSON!"</h1>
 <h2>Sayma Khajehei<br> April 11th, 2019</h2>
     </header>
-    
+    <br>
+    <br>
+    <p>
+    This map shows trip from Ames to Salt lake city to stay there for 4 or 5 years of my Ph.D life and my road trip to Las Vegas for the first vacation after moving to University of Utah! The color of the path shows the distance between the cities. Red is for a long distance, yellow for a mid distance, and green for a short distance! I have to plan to stay a night in a hotel in the red path and orange path! 
+    <br>
+        <br>
+        I have also show my three favorite schools of planning that I like to go for my post-doctoral research! the red points' size shows the proportion numbers of the students in each school. The biggest one shows the most populated one! 
+    </p>
+    <br>
+    <br>
+
      <div id='map'></div>
+    
+<script>
+  var map;
+
+////Geojson map: local data
+
+var path = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[-93.632897,
+            42.029627], [ -104.992538,
+            39.738579] ]
+                    },
+                    "properties": {"distance": 11, }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[  -104.992538,
+            39.738579], [-111.897863,40.759248] ]
+                    },
+                    "properties": {"distance": 9, }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [[-111.897863,40.759248], [-115.152850,
+            36.168673] ]
+                    },
+                    "properties": {"distance": 6, }
+                },
+
+            ]
+        };
+
+
+var Stamen_TonerLines = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20,
+	ext: 'png'
+});
+
+
+//create the map
+map = L.map('map', {
+  center: new L.LatLng(41, -100),
+  zoom: 4,
+  layers: [Stamen_TonerLines]
+});
+
+
+//colors to style line segment based on distance property
+function getColor(distance) {
+            return distance > 10 ? 'red' :
+                   distance > 8  ? 'orange' :
+                   distance > 5  ? 'green' :
+                              'yellow';
+            }
+
+//Style line and call getColor Function
+function style(feature) {
+            return {
+                weight: 8,
+                opacity: 1,
+                color: getColor(feature.properties.distance),
+            };
+        }
+
+
+
+var road = L.geoJson(path, {style: style}).addTo(map);
+
+road.addEventListener('click dblclick', function(e) {
+            alert(e.layer.feature.properties.distance)
+});
+
+    </script> 
+    
     <script>
+    
 //Geojson map: Ajax Style
          var myURL = "https://sayma-kh.github.io/LA458-558/ex13/map.geojson";
   
@@ -66,8 +165,8 @@
     return {
         stroke: false,
         fillColor: ((feature.properties.NumStudent == 1) ? '#d73027' : 
-            (feature.properties.NumStudent == 2) ? '#ffa500' :
-            (feature.properties.NumStudent == 3) ? '#3cb371': '#41b6c4' ),
+            (feature.properties.NumStudent == 2) ? '#d73027' :
+            (feature.properties.NumStudent == 3) ? '#d73027': '#FFFFFF' ),
         weight: 0
     };
 }
@@ -78,76 +177,39 @@ var geojsonLayer = new L.GeoJSON.AJAX(myURL , {
         return new L.CircleMarker(latlng, {
             stroke: true,
             weight: 0, //stroke weight
-            //color: '#000000', //stroke color
+            color: '#000000', //stroke color
             opacity: 1.0, //stoke opacity
-            fillOpacity: 0.7,
-            radius: feature.properties.NumStudent + 5,
+            fillOpacity: 0.9,
+            radius: feature.properties.NumStudent *8/2,
         });
     },
 
     onEachFeature: function (feature, layer) {
         htmlText = "<strong>" + feature.properties.Name + "</strong>" + "<div class='centered'>" + "<img src='" + feature.properties.URLlogo + "' width='100'>" + "</div>";
         layer.bindPopup(htmlText);
-        textForTooltip = feature.properties.Name + " Ranked " + feature.properties.Rank + " Among Planning Schools!";
+        textForTooltip = " Ranked " + feature.properties.Rank + " Among Planning Schools!";
 		layer.bindTooltip(textForTooltip);
     }
 }).addTo(map);
-      </script>  
-      
-     <script>
-         
- var breaks = [1, 2, 3,]; 
-var labels = ['Low Acceptance Rate', 'Moderate Acceptance Rate ', 'High Acceptance Rate'];
-function getColor(d) {
-    return  d == '1' ? "#d73027" :
-    d == '2' ? "#ffa500" :
-    d == '3' ? "#3cb371":
-    "#FFFFFF";
-}
-
-      </script>
+    </script>
+    <script>
     
-   <script>
-//Geojson map: Var Style
+    //Markers
     
-    var myPoints = [
-        [9 ,37.6283, -112.168, "Bryce Cannyon National Park"],
-        [5 ,38.68333, -109.567, "Arches National Park"],
-        [9 ,44.6, -110.5, "Yellow Stone National Park"],
-        [5 ,36.98333, -110.1, "Monument Vally National Park"],
-];
-//Priority Setting
-var breaks = [2, 5, 9,]; 
-var labels = ['High Priority', 'Medium Priority', 'Low Priority'];
-//set color of marker function
-function getColor(d) {
-    return  d == '2' ? "#d73027" :
-    d == '5' ? "#ffa500" :
-    d == '9' ? "#3cb371":
-    "#FFFFFF";
-}
-for (var i = 0; i < myPoints.length; i++) {
-    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
-    radius: myPoints[i][0]*5/2,
-    fillColor: getColor(myPoints[i][0]), 
-    color: "#000",
-    stroke: true,
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.9   
-})
-.bindPopup(myPoints[i][3]) //note there is no comma here
-.addTo(map);
-}
-          </script>
-     <div id='map'></div>
-      <script>
-   var map = L.map('map').setView([41, -100], 4);
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	attribution: 'The map contributors',
-	maxZoom: 18
-}).addTo(map); 
-      </script>
-
+    L.marker([42.029627, -93.632897]).addTo(map)
+            .bindPopup("Ames, IA")
+            .openPopup();
+    L.marker([39.738579, -104.992538]).addTo(map)
+            .bindPopup("Denver, CO")
+            .openPopup();
+    L.marker([40.759248, -111.897863]).addTo(map)
+            .bindPopup("Salt Lake City, UT")
+            .openPopup();
+    L.marker([36.168673, -115.152850]).addTo(map)
+            .bindPopup("Las Vegas, NE")
+            .openPopup();
+   
+    
+    </script>
 </body>
 </html>
