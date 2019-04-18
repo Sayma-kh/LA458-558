@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+ <title>Exercise 15: Turf.js </title>
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+ <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>	
+	
+ <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+	
+ <script src="https://npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>	
+	
+ <script>
+    var bbox = turf.bbox(features);
+</script>
+
+<style>
+    body {
+        width: 80%;
+        margin: 0 auto;
+        font-family: verdana;
+        background-color: whitesmoke; 
+    }
+    h1 {
+        font-size: 2em;
+        font-style: cursive;
+        text-align: left;
+        color: darkslateblue;
+    }
+    h2 {
+        font-size: 1em;
+        font-style: cursive;
+        color: darkslateblue;
+        text-align: left;
+    }
+    p {
+        font-size: 1em;
+        line-height: 1.5;
+        text-align: justify;
+        width: 90;
+        color: darkcyan;
+    }
+    </style>
+</head>
+<body>
+    <h1>"Exercise 15: Turf.js"</h1>
+    <h2>Sayma Khajehei, April 18th, 2019</h2>
+    <br>
+    <br>
+    	<div id="mapid" style="width: 600px; height: 400px;"></div>	 
+<script>
+//1: Make change in the line coordinates and the color
+var myLine = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -93.630423 ,
+            42.069236
+         ],
+          [
+             -93.601044,
+            42.036458
+        ],
+          [
+           -93.632451,
+            42.032145
+        ],
+          [
+            -93.598789,
+            42.003715
+        ]
+        ]
+      }
+    }
+  ]
+};
+
+
+//2:Make change in the polygon and the color
+var myPolygon = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -93.640145,
+              42.075490
+           ],
+            [
+              -93.621687,
+             42.075490
+           ],
+            [
+               -93.621687,
+              42.061883
+          ],
+            [
+              -93.640145,
+             42.061883
+            ],
+            [
+               -93.640145,
+              42.075490
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+};
+
+
+
+//Calculate the length of the polyline in miles
+var length = turf.lineDistance(myLine, 'miles');
+console.log("myLine = "+ length + " miles");
+
+
+
+//calculates the area of the mPolygon in sq meters and sq miles
+var area = turf.area(myPolygon);
+	console.log(area + " sq meters");
+	console.log(area * 0.000000386102158542 + " sq miles");
+	
+
+//The green marker point on the map
+    //3: Make changes in the coordinate: yellow circle changed to red!
+var myPoint = {
+  "type": "Feature",
+  "properties": {
+    "marker-color": "#0f0"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-93.6,42.05]  //changed to 42.05 to cover blue marker and the closest yellow circle will change
+  }
+};
+
+
+//color changed: three yellow circle markers
+   // 4:make changes in two of the yellow circle markers
+    
+var myPointCollection = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+		  id: 1
+	  },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-93.78,
+              42.03]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+		  		  id: 2
+	  },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-93.78,
+              42.0145]
+      }
+    },{
+      "type": "Feature",
+      "properties": {
+		  		  id: 3
+	  },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-93.64,
+              42.04]
+      }
+    }
+  ]
+};
+
+
+
+
+//This calculation is geodesic distance of the yellow circle that is closest to the green marker.
+var nearest = turf.nearest(myPoint, myPointCollection);
+
+var nearestID = nearest.properties.id;
+
+console.log(nearest.properties.id);
+
+
+//5:make change in the zoom of map
+var mapCenter = L.latLng(42.05,-93.6);
+
+	
+var map = L.map('mapid').setView(mapCenter, 10.5);
+
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		maxZoom: 12,
+		attribution: ''
+	}).addTo(map);
+
+var mapCenterMarker = L.marker(mapCenter).addTo(map);
+
+var myStyle = {
+    "color": "purple",
+    "weight": 3,
+    "opacity": 0.65
+};
+
+
+var myPointIcon = L.icon({
+		iconUrl: 'https://profseeger.github.io/LA558/images/chartreuseMapMarker.png',
+		iconSize: [32, 32],
+		iconAnchor: [16, 32],
+		popupAnchor: [0, -28]
+	});
+
+startPoint =  L.geoJSON(myPoint, {
+		pointToLayer: function (feature, latlng) {
+			return L.marker(latlng, {icon: myPointIcon});
+		},
+		//onEachFeature: onEachFeature
+	}).addTo(map);
+
+
+L.geoJSON(myLine, {
+    style: myStyle
+}).addTo(map);
+
+
+L.geoJSON(myPolygon, {
+    style: myStyle
+}).addTo(map);
+
+
+//if the ID of the item identified as being the nearest matches d, then change color of item to orange.
+function getColor(d) {
+    return d == nearestID ? 'red' :
+                'yellow';
+}
+
+var geojsonMarkerOptions = {
+    radius: 7,
+    fillColor: "yellow",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
+L.geoJSON(myPointCollection, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    },
+	style: function(feature) {
+	console.log(feature.properties.id);//note this is how you access contents of the id within L.geoJson
+		return {
+					//radius: some property from geojson,
+					fillColor: getColor(feature.properties.id)
+				};
+			},
+			onEachFeature: function (feature, layer) {
+				layer.bindPopup("ID: "+feature.properties.id);
+			}
+	
+}).addTo(map);
+    </script>
+    
+<br>   
+<br>
+<p>
+   <strong>Five Tools or Functions:</strong><br> 
+1. Center of Mass: This helps to take any feature or a collection of them to the center that may help in showing the features in a block group level or any other levels. 
+    
+<br>
+2. Destination: Using a distance, we can takes a point and calculates the location of a destination point.It will be helpful in showing the exact destination from a point on the map.
+  
+<br>
+3. Buffer: Using a given radius to calculate a buffer for the features. It will be helpful in finding a proper location in a distance from a certain feature.
+    
+<br>
+4.Interapolate:Make a grid for a set of points base on their values.This will help to investigate values on the grid. 
+<br>
+5.Dissolve: Dissolve a set of polygons based on their values. This may help to dissolve different buffers to have a single buffer to find a good location of a site or activity.  
+    
+<br>
+        
+</p>
+
+</body>
+</html>
