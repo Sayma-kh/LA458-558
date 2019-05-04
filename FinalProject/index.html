@@ -296,7 +296,7 @@ Highcharts.chart('container2', {
     </script>
         </body>  
         <br>
-       
+   <!-- tables of SV and PH-->      
         <body>
     <p><strong>Social Vulnerability and Flood Impacts:</strong></p><br>   
     <p>• Deatails about the public housing developments and the criterion of the social vulnerability weighted index are shown in the tables below.By adding across all these 17 indicators, a combined social vulnerability score is created that indicates hotspot concentrations of social vulnerability within and across the various block-groups in a community.<br>• In order to correct these indicators to be reliable for all block groups with different population densities, the social vulnerability scores are weighted by the population density of each block-group.<br>
@@ -436,7 +436,7 @@ Highcharts.chart('container2', {
         </body>
         
 
-<!-- adding description-->        
+<!-- adding maps of QGIS-->        
     <body>
    <div id="map"></div>
         <body>
@@ -748,7 +748,7 @@ Highcharts.chart('container2', {
         setBounds();
         </script>
         <script>
-//Vector and Marker Layers
+//Vector and Marker Layers----- PH developments!
 var Meadows = L.marker([34.641509, -78.982923]).bindPopup('Meadow'),
     DavisHeights   = L.marker([34.638318, -78.991756]).bindPopup('Davis Heights'),
     EastWoodTerrace    = L.marker([34.618371, -78.981724]).bindPopup('Eastwood Terrace'),
@@ -772,7 +772,7 @@ var Developments = L.layerGroup([Meadows, DavisHeights, EastWoodTerrace, RzierHo
         [5,34.623622, -79.019805, "Hilton Heights"],
         [3 ,34.623688, -79.039701, "Myers Park"],
 ];
-//Priority Setting
+//Setting
 var breaks = [3, 5,]; 
 var labels = ['30 Units in 1%flood plain- abandoned', '42 Units in 1%flood plain- abandoned'];
 //set color of marker function
@@ -814,7 +814,6 @@ legend.onAdd = function (map) {
         <br><p>
        <strong>Conclusion:</strong><br>Resilience should focus on reducing the spatially concentrated vulnerabilities by mapping them and prioritizing mitigation, recovery resources, and preparedness activities in the socially vulnerable neighborhoods, especifically public housing developments.
         </p>
-        
         </body>
         </body>
     <br>
