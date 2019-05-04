@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Final Project: CRP 558</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <style>
+            /* css styles */
+        header,footer {padding: 2em;color: white;font-family: calibri; background-color: navy; clear: none; text-align: center; justify-content: left}
+        body{width: 98%;margin: 0 auto;background-color:beige}
+        h1{color: white; font-family: calibri; text-align: center; font-size: 2em}
+        h2{color: white; font-family: calibri; text-align: center; font-size: 1.5em}
+        h3{color: black; font-family: calibri; text-align: center; font-size: 1.5em}
+        h4{color: black; font-family: calibri; text-align: center; font-size: 1.25em}
+        p{color: black; font-family: verdana; font-size: 1em; line-height: 1.5;text-align: justify; margin: auto; margin-bottom:auto}
+        div{vertical-align: middle;margin: auto}      
+        /* Css for map */
+            #map {
+            width: 1275px;
+            height: 564px;
+            vertical-align: center;
+        }
+            .legend {
+    line-height: 10px;
+    color: #555;
+    }
+    .legend i {
+        width: 18px;
+        height: 19px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.8;
+    }
+      .info {
+        padding: 6px 8px;
+        font: 10px/20px Arial, Helvetica, sans-serif;
+        background: rgba(255,255,255,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 7px;
+    }  
+     /* Css for fix images */
+            .img-container {
+        float: left;
+       width: 33.33%;
+       padding: 15px;
+}
+            
+    .fix1::after {
+        content: "";
+        clear: both;
+        display: table;
+        margin:0 auto ;
+}    
+     .fix2::after {
+        content: "";
+        clear: both;
+        display: table;
+        margin: 0 auto;
+}        
+            
+    /* Css for menue */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2c7fb8;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: White;
+    font-family: calibri;
+    text-align: center;
+    padding: 12px 14px;
+    text-decoration: underline;
+}
+li a:hover {
+    background-color: #2c7fb8;
+}    
+    /* Css for tables*/
+            table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+ /* Css for tables */
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+        </style>
+        <title></title>
+    </head>
+    <body>
+      <header>
+   <h1><strong>Mapping Social Vulnerability and Flood Damages</strong></h1>
+<h2>Public Housing Units in Lumberton, North Carolina after Hurricane Matthew, 2016</h2>  
+</header>
+      <div id="menu">
+        <ul>
+          <li><a class="active" href="#SlideShow">Pictures of Hurricane Matthew and Public Housings </a></li>
+          <li><a href="#container"> Race and Poverty Chart </a></li>
+          <li><a href="#tables"> Public Housing table and Social Vulnerability indicators </a></li>
+          <li><a href="#map"> Social Vulnerability and Damage Loss Map </a></li>
+        </ul>
+      </div>
+    </body>
+      <br>
+      <br>
+<p><strong>Introduction:</strong> 
+<br>• Social Vulnerability consists of certain socioeconomic characteristics of individuals or group that limit the capacity to anticipate, cope with, resist and recover from the impacts of hazards. 
+<br>• Residents of public housing are among the most socially vulnerable groups with limited access to recovery resources and limited voice in recovery planning. They often have very limited access to temporary or permanent shelters of their choice  due to factors such as lower income and limited access to information and decisions.<br>• My case study of the impacts of Hurricane Matthew on public housing in Lumberton, NC illustrates some of the issues with regards to planning for recovery of public housing after disasters. 
+</p><br>
+<!-- adding images--->
+ <div id="pics"></div> 
+    
+    <p><strong>Case Study:</strong></p>
+      <body data-hm-ch-ph-ph-loaded="true">
+           <!-- images added to show maps-->
+         <div class="fix1"> 
+    <div class="img-container">
+        <img src="large-location-map-of-north-carolina-state.jpg" alt="North Carolina" style="width:100%">
+             </div> 
+    <div class="img-container">
+        <img src="Robeson_county_map.jpg" alt="Robeson County" style="width:100% ; height:285px; border: 2px solid black">
+             </div>
+             <P><br> Robeson County is located on coastal region of southeastern North Carolina.<br> Lumberton is the County seat of Rebeson County.<br> This city spans 15.8 square Miles.<br><br> Lumberton has 21,707 population:<br> •	39% Non-Hispanic White<br>•	36.7% Non-Hispanic African-American <br>• 12.7% Native American<br>• 6.7% Hispanic<br>• 4.8% Other</P>
+              </div> 
+          <br>
+         <div class="text"> 
+          <p><strong>Background:</strong>
+         <br>• Hurricane Matthew made landfall in North Carolina on October 8, 2016, as a Category 1 storm.<br>• Several communities including Lumberton were devastated by heavy rainfall and the river flooding that began after Hurricane Matthew. 
+        <br>• Lumberton is a diverse socio-demographic city with one-third of households who live at or below the poverty level.<br>• Lumberton is considered as a “minority-majority community” with a high percentage of African American and Native American.<br> 
+             </p></div>
+          <br>
+          <div id="SlideShow">
+          <h3>
+        <img name="slide" id="slide" width="1275" height="564" src=" "></h3>
+       <script>
+//images of Matthew!--- damages
+           var i =0; 
+           var images = [];
+           var time = 2000;
+           
+           images [0] = "https://si.wsj.net/public/resources/images/BN-QG077_ROBESO_GR_20161013104450.jpg";
+           images [1] = "https://i.ytimg.com/vi/Lk82fTyhjBI/maxresdefault.jpg";
+           images [2] = "https://www.robesonian.com/wp-content/uploads/2017/03/web1_housing3-2.jpg";
+           images [3] = "https://www.trbimg.com/img-58129b9d/turbine/ct-north-carolina-death-toll-hurricane-matthew-20161027";
+           images [4] = "https://cf-images.us-east-1.prod.boltdns.net/v1/static/5615998031001/9dead926-073d-4cc0-b66b-5aadb50d6ec0/818547c7-c651-4d50-ac5a-4026d812b787/1280x720/match/image.jpg";
+           
+//function: show slides of images
+           function changeImg() {
+               document.slide.src = images [i];
+               
+               if(i < images.length - 1){
+                 i++;
+               } else {
+                   i =0;
+               }
+            setTimeout("changeImg()", time);
+           }
+           
+           window.onload = changeImg;
+        </script> 
+    <br> 
+       </div> 
+    </body>               
+          
+    <p><strong>Public Housing And Flood Impacts on It:</strong><br>• Lumberton has 729 public housing units. <br>• Lumberton public housing developments follow the general pattern of public housing complexes in the U.S. where is the concentration of minortity and poverty.
+</p>
+<div id="container" style="min-width: 480px; height: 400px; max-width: 500px; position: absolute; margin-left: 650px; padding: 5em; overflow: hidden"></div>
+    <body>
+        
+            <script>
+// Build the chart
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Racial Composition of HACL Tenants, 2017'
+    },
+    subtitle: {
+        text: 'Source: 2017 HUD Data'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+   plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Race',
+        colorByPoint: true,
+        data: [{
+            name: 'White',
+            y: 14,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'African-American',
+            y: 62
+        }, {
+            name: 'Native American',
+            y: 24
+        }]
+    }]
+});
+    </script>
+        
+        
+    <div id="container2" style="min-width: 500px; height: 400px; max-width: 500px; position: relative; margin-right:0px;
+    margin-left:0px; padding: 5em"></div>
+    <body>
+            <script>
+// Build the chart// 
+Highcharts.chart('container2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Average Income of HACL Tenants, 2017'
+    },
+    subtitle: {
+        text: 'Source: 2017 HUD Data'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+   plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Income',
+        colorByPoint: true,
+        data: [{
+            name: 'Extremely Low Income',
+            y: 77,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Very Low Income',
+            y: 18
+        }, {
+            name: 'Low Income',
+            y: 5
+        }, {
+            name: 'Above Low Income',
+            y: 0
+        }]
+    }]
+});
+    </script>
+        </body>  
+        <br>
+       
+        <body>
+    <p><strong>Social Vulnerability and Flood Impacts:</strong></p><br>   
+    <p>• Deatails about the public housing developments and the criterion of the social vulnerability weighted index are shown in the tables below.By adding across all these 17 indicators, a combined social vulnerability score is created that indicates hotspot concentrations of social vulnerability within and across the various block-groups in a community.<br>• In order to correct these indicators to be reliable for all block groups with different population densities, the social vulnerability scores are weighted by the population density of each block-group.<br>
+            choropleth map made based on the social vulnerability weighted index scores. <br> Based on the weighted social vulnerability index scores, the housing tenure, race and poverty are the main vulnerabilities of the residents of public housing units
+            </p><br>
+     <div id="tables">
+    <div class="centered" style="width:75%">
+        <div style="float:left; height:500px; width:40%">
+            <h4 class="centered"><strong>Public Housing Developments in Lumberton</strong></h4>
+            <table style="width:100%">
+                <tr>
+                    <th>Developments</th>
+                    <th>Numbers of Units</th>
+                </tr>
+                <tr>
+                    <td>The Meadows</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>The Meadows Ext</td>
+                    <td>24</td>
+                </tr>
+                <tr>
+                    <td>Davis Heights</td>
+                    <td>60</td>
+                </tr>
+                <tr>
+                    <td>Eastwood Terrace</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Rozier Homes</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Hilton Heights</td>
+                    <td>42</td>
+                </tr>
+                <tr>
+                    <td>Mohr Plaza</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>Turner Terrace</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>Lumbee Homes</td>
+                    <td>93</td>
+                </tr>
+                <tr>
+                    <td>Myers Park</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Tudor Court</td>
+                    <td>60</td>
+                </tr>
+                <tr>
+                    <td>Weaver Court</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>729</td>
+                </tr>
+               
+            </table>
+        </div>
+        </div>
+             <div class="centered" style="width:80%">
+        <div style="float:right; height:500px; width:55%">
+            <h4 class="centered"><strong>Base Social Vulnerability Indicators</strong></h4>
+            <table style="width:115%">
+                <tr>
+                    <td>Single parent households with children/ Total Households</td>
+                   
+                </tr>
+                <tr>
+                    <td>Population 5 or below; Population 65 or above/Total Population</td>
+                    
+                </tr>
+                <tr>
+                    <td>Population 65 or above and below poverty/ Pop. 65 or above</td>
+            
+                </tr>
+                <tr>
+                    <td>Workers using public transportation/ Civilian pop. 16+ and employed</td>
+                 
+                </tr>
+                <tr>
+                    <td>Occupied housing units without a vehicle/ Occupied housing unit</td>
+                  
+                </tr>
+             
+                <tr>
+                    <td>Persons in renter occupied housing units/ Total occupied housing units</td>
+                  
+                    
+                </tr>
+                <tr>
+                    <td>Non-white population/Total population</td>
+                   
+                </tr>
+                <tr>
+                    <td>Population in group quarters/Total population</td>
+                    
+                </tr>
+                <tr>
+                    <td>Housing units built 20 years ago; Mobile Homes; Vacant Housing units/Total housing Units</td>
+                   
+                </tr>
+
+                <tr>
+                    <td>Persons in poverty/Total population</td>
+               
+                </tr>
+                <tr>
+                    <td>Occupied housing units without a telephone/Total occupied house unit</td>
+              
+                </tr>
+                <tr>
+                    <td>Population above 25 with less than high school/Total pop above 25</td>
+                 
+                </tr>
+                <tr>
+                    <td>Population 16+ in labor force and unemployed/Pop in Labor force 16+</td>
+                </tr>
+                 <tr>
+                    <td>Population above 5 that speak English not well or not at all/Pop >5</td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+       </div>   
+        </body>
+        
+
+<!-- adding description-->        
+    <body>
+   <div id="map"></div>
+        <body>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/SocialVulnerabilityMap_0.js"></script>
+        <script src="data/LumbertonRoutes_1.js"></script>
+        <script src="data/LumberRiver_2.js"></script>
+        <script src="data/PublicHousingLoss_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_SocialVulnerabilityMap_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_SocialVulnerabilityMap_0_0(feature) {
+            if (feature.properties['SV_Index_W'] >= 111.030000 && feature.properties['SV_Index_W'] <= 389.480000 ) {
+                return {
+                pane: 'pane_SocialVulnerabilityMap_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,1.0)',
+            }
+            }
+            if (feature.properties['SV_Index_W'] >= 389.480000 && feature.properties['SV_Index_W'] <= 3342.000000 ) {
+                return {
+                pane: 'pane_SocialVulnerabilityMap_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,112,80,1.0)',
+            }
+            }
+            if (feature.properties['SV_Index_W'] >= 3342.000000 && feature.properties['SV_Index_W'] <= 6969.470000 ) {
+                return {
+                pane: 'pane_SocialVulnerabilityMap_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_SocialVulnerabilityMap_0');
+        map.getPane('pane_SocialVulnerabilityMap_0').style.zIndex = 400;
+        map.getPane('pane_SocialVulnerabilityMap_0').style['mix-blend-mode'] = 'normal';
+        var layer_SocialVulnerabilityMap_0 = new L.geoJson(json_SocialVulnerabilityMap_0, {
+            attribution: '',
+            pane: 'pane_SocialVulnerabilityMap_0',
+            onEachFeature: pop_SocialVulnerabilityMap_0,
+            style: style_SocialVulnerabilityMap_0_0,
+        });
+        bounds_group.addLayer(layer_SocialVulnerabilityMap_0);
+        map.addLayer(layer_SocialVulnerabilityMap_0);
+        function pop_LumbertonRoutes_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LumbertonRoutes_1_0() {
+            return {
+                pane: 'pane_LumbertonRoutes_1',
+                opacity: 1,
+                color: 'rgba(208,206,208,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_LumbertonRoutes_1');
+        map.getPane('pane_LumbertonRoutes_1').style.zIndex = 401;
+        map.getPane('pane_LumbertonRoutes_1').style['mix-blend-mode'] = 'normal';
+        var layer_LumbertonRoutes_1 = new L.geoJson(json_LumbertonRoutes_1, {
+            attribution: '',
+            pane: 'pane_LumbertonRoutes_1',
+            onEachFeature: pop_LumbertonRoutes_1,
+            style: style_LumbertonRoutes_1_0,
+        });
+        bounds_group.addLayer(layer_LumbertonRoutes_1);
+        map.addLayer(layer_LumbertonRoutes_1);
+        function pop_LumberRiver_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LumberRiver_2_0() {
+            return {
+                pane: 'pane_LumberRiver_2',
+                opacity: 1,
+                color: 'rgba(16,16,234,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(73,72,183,1.0)',
+            }
+        }
+        map.createPane('pane_LumberRiver_2');
+        map.getPane('pane_LumberRiver_2').style.zIndex = 402;
+        map.getPane('pane_LumberRiver_2').style['mix-blend-mode'] = 'normal';
+        var layer_LumberRiver_2 = new L.geoJson(json_LumberRiver_2, {
+            attribution: '',
+            pane: 'pane_LumberRiver_2',
+            onEachFeature: pop_LumberRiver_2,
+            style: style_LumberRiver_2_0,
+        });
+        bounds_group.addLayer(layer_LumberRiver_2);
+        map.addLayer(layer_LumberRiver_2);
+        var layer_OpenStreetMap_3 = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '',
+        });
+        layer_OpenStreetMap_3;
+        map.addLayer(layer_OpenStreetMap_3);
+        function pop_PublicHousingLoss_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">x_lon</th>\
+                        <td>' + (feature.properties['x_lon'] !== null ? Autolinker.link(String(feature.properties['x_lon'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">y_lat</th>\
+                        <td>' + (feature.properties['y_lat'] !== null ? Autolinker.link(String(feature.properties['y_lat'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">vloss</th>\
+                        <td>' + (feature.properties['vloss'] !== null ? Autolinker.link(String(feature.properties['vloss'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PublicHousingLoss_4_0(feature) {
+            switch(String(feature.properties['vloss'])) {
+                case '0.0049999999':
+                    return {
+                pane: 'pane_PublicHousingLoss_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(245,248,21,1.0)',
+            }
+                    break;
+                case '0.155':
+                    return {
+                pane: 'pane_PublicHousingLoss_4',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,141,60,1.0)',
+            }
+                    break;
+                case '0.55000001':
+                    return {
+                pane: 'pane_PublicHousingLoss_4',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(240,59,32,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_PublicHousingLoss_4');
+        map.getPane('pane_PublicHousingLoss_4').style.zIndex = 404;
+        map.getPane('pane_PublicHousingLoss_4').style['mix-blend-mode'] = 'normal';
+        var layer_PublicHousingLoss_4 = new L.geoJson(json_PublicHousingLoss_4, {
+            attribution: '',
+            pane: 'pane_PublicHousingLoss_4',
+            onEachFeature: pop_PublicHousingLoss_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PublicHousingLoss_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PublicHousingLoss_4);
+        map.addLayer(layer_PublicHousingLoss_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Public Housing Loss<br /><table><tr><td style="text-align: center;"><img src="legend/PublicHousingLoss_4_MinorDamageLoss0.png" /></td><td>Minor Damage Loss</td></tr><tr><td style="text-align: center;"><img src="legend/PublicHousingLoss_4_ModerateDamageLoss1.png" /></td><td>Moderate Damage Loss</td></tr><tr><td style="text-align: center;"><img src="legend/PublicHousingLoss_4_SevereDamageLoss2.png" /></td><td>Severe Damage Loss</td></tr></table>': layer_PublicHousingLoss_4,"OpenStreetMap": layer_OpenStreetMap_3,'<img src="legend/LumberRiver_2.png" /> Lumber River': layer_LumberRiver_2,'<img src="legend/LumbertonRoutes_1.png" /> Lumberton Routes': layer_LumbertonRoutes_1,'Social Vulnerability Map<br /><table><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityMap_0_LowSocialVulnerability0.png" /></td><td>Low Social Vulnerability</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityMap_0_MediumSocialVulnerability1.png" /></td><td>Medium Social Vulnerability</td></tr><tr><td style="text-align: center;"><img src="legend/SocialVulnerabilityMap_0_HighSocialVulnerability2.png" /></td><td>High Social Vulnerability</td></tr></table>': layer_SocialVulnerabilityMap_0,}).addTo(map);
+        setBounds();
+        </script>
+        <script>
+//Vector and Marker Layers
+var Meadows = L.marker([34.641509, -78.982923]).bindPopup('Meadow'),
+    DavisHeights   = L.marker([34.638318, -78.991756]).bindPopup('Davis Heights'),
+    EastWoodTerrace    = L.marker([34.618371, -78.981724]).bindPopup('Eastwood Terrace'),
+    RzierHomes    = L.marker([34.616101, -78.997858]).bindPopup('Rozier Homes'),
+    HiltonHeights    = L.marker([34.623622, -79.019805]).bindPopup('Hilton Heights'),
+    MohrPlaza    = L.marker([34.619629, -79.013202]).bindPopup('Mohr Plaza'),
+    TurnerTerrace    = L.marker([34.616817, -79.017879]).bindPopup('Turner Terrace'),
+    LumbeeHomes    = L.marker([34.611179, -79.025388]).bindPopup('Lumbee Homes'),
+    MyersPark    = L.marker([34.623688, -79.039701]).bindPopup('Myers Park'),
+    TudorCourt   = L.marker([34.617231, -79.045843]).bindPopup('Tudor Court'),
+    WeaverCourt   = L.marker([34.601409, -79.021789]).bindPopup('Weaver Court');
+
+var Developments = L.layerGroup([Meadows, DavisHeights, EastWoodTerrace, RzierHomes, HiltonHeights, MohrPlaza, TurnerTerrace, LumbeeHomes, MyersPark, TudorCourt, WeaverCourt]);
+            Developments.addTo(map);
+         
+        </script> 
+  </body>
+        <script>      
+        //internal GeoJson//
+        var myPoints = [
+        [5,34.623622, -79.019805, "Hilton Heights"],
+        [3 ,34.623688, -79.039701, "Myers Park"],
+];
+//Priority Setting
+var breaks = [3, 5,]; 
+var labels = ['30 Units in 1%flood plain- abandoned', '42 Units in 1%flood plain- abandoned'];
+//set color of marker function
+function getColor(d) {
+    return d == '5' ? "#2c7fb8" :
+    d == '3' ? "#a1dab4" :
+    "#FFFFFF";
+}
+for (var i = 0; i < myPoints.length; i++) {
+    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
+    radius: myPoints[i][0]+15,
+    fillColor: getColor(myPoints[i][0]), 
+    color: "#000",
+    stroke: true,
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8   
+})
+.bindPopup(myPoints[i][2]) //note there is no comma here
+.addTo(map);
+}  
+    
+var legend = L.control({position: 'bottomleft'});
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    // loop through items and generate legend items each
+     div.innerHTML += "<b> Abandoned Developments </b> <br>"
+         
+    for (var i = 0; i <breaks.length; i++){ 
+    div.innerHTML +=
+        '<i style="background:' + getColor(breaks[i]) + ' "></i> ' + labels[i] + (breaks ? '' + '<br>' : '');
+        }
+    return div;
+     };
+     legend.addTo(map);
+        </script> 
+        <p><br>• 70% of the displaced families after the floods were residents of public housing.<br>• The flood destroyed 37% of public housing units in Lumberton that resulted in displacement of 267 families! <br>• 47% of the major damaged public housing units were covered through insurance, while 53% of the units that were flooded extremely did not have flood insurance coverage.<br>• 22% of damaged public housing samples were not repaired after two years. Overall 182 out of 729 units are not restored yet! 
+<br>• The units in 1% flood plain are not relocated yet after 2 years!<em> To see the developments, uncheck the social vulnerability and damage loss layers!</em></p>
+        <br><p>
+       <strong>Conclusion:</strong><br>Resilience should focus on reducing the spatially concentrated vulnerabilities by mapping them and prioritizing mitigation, recovery resources, and preparedness activities in the socially vulnerable neighborhoods, especifically public housing developments.
+        </p>
+        
+        </body>
+        </body>
+    <br>
+    <footer><strong>Sayma Khajehei</strong> <br> Department of Community and Regional Planning <br> Iowa State University <br> Spring,2019 
+</footer>
+         
+</html>
